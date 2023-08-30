@@ -1,0 +1,57 @@
+server:
+  port: 8090
+
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/cafe
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+
+  sql:
+    init:
+      encoding: utf-8
+
+  oauth2:
+    google:
+      url: https://accounts.google.com/o/oauth2/v2/auth
+      client-id: 189868124724-ennd75gblqkld8ard53rp26kfbvqkjdv.apps.googleusercontent.com
+      client-secret: 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
+      callback-url: http://localhost:5173/login/google/callback
+      #callback-url: http://localhost:8090/api/v1/login/oauth2/code/google/callback
+      scope: https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email
+
+  pay:
+    kakao:
+      url: https://kapi.kakao.com/v1/payment/ready
+      admin-key: 54706c2bbdb3f38aee4de7a2f7483970
+      cid: TC0ONETIME
+      approval-url: http://localhost:5173/order/pay/kakao/success
+      #approval-url: http://localhost:8090/order/pay/kakao/success
+      fail-url: http://localhost:5173/order/pay/kakao/fail
+      cancel-url: http://localhost:5173/order/pay/kakao/cancel
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+
+jwt:
+  secret: 2b082ff5af229940435998bcf353a36141925d5919f649013c4c9a86f17a23d9
+
+file:
+  upload-dir: D:/test #D:/03. Project/cafe/uploads

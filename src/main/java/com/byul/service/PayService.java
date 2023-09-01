@@ -2,6 +2,7 @@ package com.byul.service;
 
 import com.byul.domain.PlatformType;
 import com.byul.domain.order.Order;
+import com.byul.domain.order.OrderStatus;
 import com.byul.domain.pay.Payment;
 import com.byul.domain.repository.OrderRepository;
 import com.byul.domain.repository.PaymentRepository;
@@ -48,15 +49,21 @@ public class PayService {
     public String pay(PlatformType platformType, KakaoPayRequestDto requestDto) {
         switch (platformType) {
             case KAKAO -> {
-                //결제 요청하기
-                KakaoPayResponseDto response = kakaoPay.pay(requestDto);
-
-                //결제 데이터 저장하기
+                //주문 내역 조회하기
                 Order order = orderRepository.findById(requestDto.getOrderId())
                         .stream().findAny()
                         .orElseThrow(() -> new NoSuchElementException("주문 내역이 없습니다. order_id = " + requestDto.getOrderId()));
 
+                if (order.getStatus() != OrderStatus.ORDER) {
+                    return "결제 완료된 주문입니다.";
+                }
+
+                //결제 요청하기
+                KakaoPayResponseDto response = kakaoPay.pay(requestDto);
+
+                //결제 데이터 저장하기
                 Payment payment = response.toPayment();
+                order.setOrderStatus(OrderStatus.PAYED);
                 payment.addOrder(order);
 
                 paymentRepository.save(payment);

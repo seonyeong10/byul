@@ -36,7 +36,7 @@ public class OrderService {
      * POST /api/v1/order/{member_id}
      */
     @Transactional
-    public ResponseEntity<String> order(Long memberId, List<OrderItemRequestDto> requestDtos) {
+    public ResponseEntity<Long> order(Long memberId, List<OrderItemRequestDto> requestDtos) {
         //회원 조회
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new NoSuchElementException(String.format("회원을 찾을 수 없습니다. member_id = [%d]", memberId)));
         List<OrderItem> orderItems = new ArrayList<>();
@@ -57,7 +57,7 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        return ResponseEntity.ok("주문이 완료되었습니다.");
+        return ResponseEntity.ok(order.getId());
     }
 
     /**
@@ -101,4 +101,10 @@ public class OrderService {
         order.setOrderStatus(OrderStatus.CANCEL);
     }
 
+    public OrderHistoryResDto findForPay(Long orderId) {
+        return orderRepository.findById(orderId).stream()
+                .findAny()
+                .map(OrderHistoryResDto::new)
+                .orElseThrow(() -> new NoSuchElementException(String.format("주문 내역이 존재하지 않습니다. order_id = [%d]", orderId)));
+    }
 }

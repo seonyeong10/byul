@@ -16,6 +16,13 @@ public class OrderController {
 
     private final OrderService orderService;
 
+    @GetMapping("/api/v1/order/{orderId}")
+    public OrderHistoryResDto findForPay(
+            @PathVariable(name = "orderId") Long orderId
+    ) {
+        return orderService.findForPay(orderId);
+    }
+
     @PostMapping("/api/v1/order/{memberId}")
     public ResponseEntity<?> order(
             @PathVariable(name = "memberId") Long memberId,

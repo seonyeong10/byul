@@ -50,10 +50,54 @@
 <br/>
 
 > ### API 설계
-![회원](https://github.com/seonyeong10/byul/assets/78454631/4862d635-563c-426e-9d5e-83853f28a671)
+<br/>
 
-![상품](https://github.com/seonyeong10/byul/assets/78454631/2b2e52ee-107b-4315-a9d1-b44313c7f968)
+#### 회원 관련 API
 
-![장바구니](https://github.com/seonyeong10/byul/assets/78454631/d4d854c7-0af8-4dc4-b17d-dff6efed037a)
+|기능|Method|URL|Parameter|Return|
+|----|-----|----------|----------|----------|
+|소셜 로그인 페이지 호출|GET|/api/v1/login/oauth2/code/{platform}||redirectURL|
+|소셜 로그인|GET|/api/v1/login/oauth2/code/{platform}/callback|?code={code}|JwtToken|
+|JWT 토큰 발급|POST|/api/v1/login/reissue||JwtToken|
+|로그아웃|POST|/api/v1/logout|||
 
-![주문](https://github.com/seonyeong10/byul/assets/78454631/6f32c911-a3ee-4d03-89a7-8519a96a58c7)
+<br/>
+
+#### 상품 관련 API
+
+|기능|Method|URL|Parameter|Return|
+|----|-----|----------|----------|----------|
+|전체 조회|GET|/api/v1/menus|?page={page}&sort={sort}|MenuListResponseDto|
+|카테고리별 조회|GET|/api/v1/menus/{parentCategoryName}|?page={page}&sort={sort}|MenuListResponseDto|
+|상세 조회|GET|/api/v1/menus/{parentCategory}/{childCategory}/{menuId}||MenuResponseDto|
+
+<br/>
+
+#### 장바구니 관련 API
+
+|기능|Method|URL|Parameter|Return|
+|----|-----|----------|----------|----------|
+|장바구니 추가|POST|/api/v1/my/{memberId}/cart|||
+|장바구니 전체 조회|GET|/api/v1/my/{memberId}/cart||List<CartResponseDto>|
+|장바구니 전체 삭제|DELETE|/api/v1/my/{memberId}/cart/delete/all|||
+|장바구니 선택 삭제|DELETE|/api/v1/my/{memberId}/cart/delete|?cartIds={cartIds}||
+
+<br/>
+
+#### 주문 관련 API
+
+|기능|Method|URL|Parameter|Return|
+|----|-----|----------|----------|----------|
+|주문하기|POST|/api/v1/order/{memberId}||ok|
+|주문 전체 조회|GET|/api/v1/my/{memberId}/history||List<OrderHistroyResDto>|
+|주문 상세 조회|GET|/api/v1/my/{memberId}/history/{orderId}||OrderHistroyResDto|
+|주문 취소|PUT|/api/v1/my/{memberId}/history/{orderId}|||
+
+<br/>
+
+#### 결제 관련 API
+
+|기능|Method|URL|Parameter|Return|
+|----|-----|----------|----------|----------|
+|결제 준비하기|GET|/api/v1/order/{memberId}/pay/{platform}|?orderId={orderId}&itemName={itemName}&quantity={quantity}&totalAmount={totalAmount}|ok|
+|결제하기|POST|/api/v1/order/{memberId}/pay/{platform}|||

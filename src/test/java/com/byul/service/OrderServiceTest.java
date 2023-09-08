@@ -18,9 +18,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cglib.core.Local;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -95,8 +98,12 @@ class OrderServiceTest {
     @Test
     public void order_findAll_test () throws Exception {
         //given
-        String startDate = "2023-08-01";
-        String endDate = "2023-08-30";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate now = LocalDate.now();
+        String startDate = now.withDayOfMonth(1).format(formatter);
+        String endDate = now.withDayOfMonth(now.lengthOfMonth()).format(formatter);
+
+        System.out.printf("startDate = %s || endDate = %s\n", startDate, endDate);
 
         OrderItem item1 = OrderItem.builder()
                 .price(item.getPrice())

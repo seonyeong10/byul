@@ -2,8 +2,7 @@ package com.byul.web;
 
 import com.byul.service.MenuService;
 import com.byul.web.dto.request.MenuListRequestDto;
-import com.byul.web.dto.request.MenuRequestDto;
-import com.byul.web.dto.response.MenuListResponseDto;
+import com.byul.web.dto.response.ItemListResponseDto;
 import com.byul.web.dto.response.MenuResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -19,14 +18,14 @@ public class MenuController {
     private final MenuService menuService;
 
     @GetMapping("/api/v1/menus")
-    public Page<MenuListResponseDto> findAll(
+    public Page<ItemListResponseDto> findAll(
             MenuListRequestDto requestDto
     ) {
         return menuService.findAll(requestDto);
     }
 
     @GetMapping("/api/v1/menus/{parentCategoryName}")
-    public Page<MenuListResponseDto> findAllCategory(
+    public Page<ItemListResponseDto> findAllCategory(
             @PathVariable(name = "parentCategoryName") String parentCategoryName,
             MenuListRequestDto requestDto
     ) {

@@ -8,11 +8,8 @@ import com.byul.domain.repository.CategoryRepository;
 import com.byul.domain.repository.MenuDetailRepository;
 import com.byul.domain.repository.MenuRepository;
 import com.byul.web.dto.request.MenuListRequestDto;
-import com.byul.web.dto.response.MenuListResponseDto;
+import com.byul.web.dto.response.ItemListResponseDto;
 import com.byul.web.dto.response.MenuResponseDto;
-import com.byul.web.dto.response.pay.kakao.KakaoPayResponseDto;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -65,7 +62,7 @@ class MenuServiceTest {
         //when
         Category findCtg = categoryRepository.findById(child.getId()).orElse(null);
         System.out.println(findCtg.getEngName());
-        Page<MenuListResponseDto> all = menuService.findAllCategory(requestDto, parent.getEngName());
+        Page<ItemListResponseDto> all = menuService.findAllCategory(requestDto, parent.getEngName());
 
         //then
         assertEquals(all.getContent().get(0).getName(), name+29);

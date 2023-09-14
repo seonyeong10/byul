@@ -17,11 +17,12 @@ class ItemServiceTest {
     @Autowired ItemService itemService;
 
     @Test
-    public void findAllLatest_test () throws Exception {
+    public void findAllComplex_test () throws Exception {
         //given
 
         //when
-        List<ItemListResponseDto> all = itemService.findAllLatest();
+        List<ItemListResponseDto> allLatest = itemService.findAllLatest();
+        List<ItemListResponseDto> allAdvised = itemService.findAllAdvised();
 
         //then
     }

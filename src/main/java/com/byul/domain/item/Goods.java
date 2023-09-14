@@ -19,8 +19,8 @@ public class Goods extends Item {
     private int stock;
 
     @Builder
-    public Goods(Long id, Category category, String name, String engName, int price, Period period, String season, String pick, String etc, int stock, int orderCount) {
-        super(id, category, name, engName, price, period, season, pick, etc, orderCount);
+    public Goods(Long id, Category category, String name, String engName, int price, Period period, String season, String etc, int stock, int orderCount) {
+        super(id, category, name, engName, price, period, season, etc, orderCount);
         this.stock = stock;
     }
 

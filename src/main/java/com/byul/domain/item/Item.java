@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +38,6 @@ public class Item extends BaseTimeEntity {
 
     private String season = "N";
 
-    private String pick = "N";
-
     @Lob
     private String etc;
 
@@ -49,7 +46,7 @@ public class Item extends BaseTimeEntity {
 
     private int orderCount = 0; // 주문 횟수 -> 인기순
 
-    public Item(Long id, Category category, String name, String engName, int price, Period period, String season, String pick, String etc, int orderCount) {
+    public Item(Long id, Category category, String name, String engName, int price, Period period, String season, String etc, int orderCount) {
         this.id = id;
         this.category = category;
         this.name = name;
@@ -57,7 +54,6 @@ public class Item extends BaseTimeEntity {
         this.price = price;
         this.period = period;
         this.season = season;
-        this.pick = pick;
         this.etc = etc;
         this.orderCount = orderCount;
     }
@@ -79,7 +75,6 @@ public class Item extends BaseTimeEntity {
         this.price = price;
         this.period = period;
         this.season = season;
-        this.pick = pick;
         this.etc = etc;
     }
 

@@ -23,8 +23,8 @@ public class Menu extends Item {
     private List<MenuDetail> menuDetail = new ArrayList<>();
 
     @Builder
-    public Menu(Long id, Category category, String name, String engName, int price, Period period, String season, String pick, String etc, String temp, int orderCount) {
-        super(id, category, name, engName, price, period, season, pick, etc, orderCount);
+    public Menu(Long id, Category category, String name, String engName, int price, Period period, String season, String etc, String temp, int orderCount) {
+        super(id, category, name, engName, price, period, season, etc, orderCount);
         this.temp = temp;
     }
 }

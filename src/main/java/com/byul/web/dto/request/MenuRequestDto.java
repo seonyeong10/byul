@@ -25,8 +25,6 @@ public class MenuRequestDto {
 
     private String season = "N";
 
-    private String pick = "N";
-
     private String etc;
 
     private Sizes sizes;
@@ -55,7 +53,7 @@ public class MenuRequestDto {
     private int sodium;
 
     @Builder
-    public MenuRequestDto(Long categoryId, String name, String engName, int price, LocalDateTime startDate, LocalDateTime endDate, String season, String pick, String etc, Sizes sizes, String temp, Long calorie, int carbohydrate, int sugar, int protein, int fat, int saturFat, int transFat, int cholesterol, int caffeine, int sodium) {
+    public MenuRequestDto(Long categoryId, String name, String engName, int price, LocalDateTime startDate, LocalDateTime endDate, String season, String etc, Sizes sizes, String temp, Long calorie, int carbohydrate, int sugar, int protein, int fat, int saturFat, int transFat, int cholesterol, int caffeine, int sodium) {
         this.categoryId = categoryId;
         this.name = name;
         this.engName = engName;
@@ -63,7 +61,6 @@ public class MenuRequestDto {
         this.startDate = startDate;
         this.endDate = endDate;
         this.season = season;
-        this.pick = pick;
         this.etc = etc;
         this.sizes = sizes;
         this.temp = temp;
@@ -92,7 +89,6 @@ public class MenuRequestDto {
                 .engName(engName)
                 .price(price)
                 .etc(etc)
-                .pick(pick)
                 .season(season)
                 .temp(temp)
                 .build();

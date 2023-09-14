@@ -14,26 +14,6 @@ import java.util.stream.Collectors;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    /**
-     * 신 메뉴 가져오기
-     */
-    public List<ItemListResponseDto> findAllLatest() {
-        return itemRepository.findLatest().stream()
-                .map(ItemListResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * 추천 메뉴 가져오기
-     */
-    public List<ItemListResponseDto> findAllAdvised() {
-        ItemParam param = ItemParam.builder().isAdvised(true).build();
-
-        return itemRepository.findAllComplex(param).stream()
-                .map(ItemListResponseDto::new)
-                .collect(Collectors.toList());
-    }
-
     public List<ItemListResponseDto> findAllComplex(ItemParam param) {
         return itemRepository.findAllComplex(param).stream()
                 .map(ItemListResponseDto::new)

@@ -103,7 +103,7 @@ class OrderServiceTest {
         String startDate = now.withDayOfMonth(1).format(formatter);
         String endDate = now.withDayOfMonth(now.lengthOfMonth()).format(formatter);
 
-        System.out.printf("startDate = %s || endDate = %s\n", startDate, endDate);
+        //System.out.printf("startDate = %s || endDate = %s\n", startDate, endDate);
 
         OrderItem item1 = OrderItem.builder()
                 .price(item.getPrice())

@@ -71,6 +71,8 @@ public class OAuthService {
                 //일회성 코드를 보내 액세스 토큰이 담긴 객체를 받는다.
                 ResponseEntity<String> accessTokenResponse = googleOAuth.requestAccessToken(code);
 
+                if (accessTokenResponse == null) return null;
+
                 //JSON 형식의 응답을 GoogleOAuthToken 객체에 담는다.
                 GoogleOAuthToken googleOAuthToken = googleOAuth.getAccessToken(accessTokenResponse);
 
@@ -86,9 +88,13 @@ public class OAuthService {
                 //Member 에 해당 이메일을 가진 유저가 존재하는지 확인한다.
                 //존재하지 않으면 DB에 저장한다.
                 Member member = memberRepository.findByEmail(googleUser.getEmail())
-                        .orElse(memberRepository.save(googleUser.toMember()));
+                        .orElse(null);
 
                 log.info("member >>> " + member);
+
+                if (member == null) {
+                    member = memberRepository.save(googleUser.toMember());
+                }
 
                 //JWT 토큰을 발급한다.
                 Authentication authentication = jwtTokenProvider.requestAuthentication(member);

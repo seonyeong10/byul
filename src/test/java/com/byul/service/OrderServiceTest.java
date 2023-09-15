@@ -1,8 +1,8 @@
 package com.byul.service;
 
 import com.byul.domain.Member;
+import com.byul.domain.item.Drink;
 import com.byul.domain.item.Item;
-import com.byul.domain.item.Menu;
 import com.byul.domain.item.Sizes;
 import com.byul.domain.order.Order;
 import com.byul.domain.order.OrderItem;
@@ -13,12 +13,10 @@ import com.byul.web.dto.request.OrderItemRequestDto;
 import com.byul.web.dto.request.OrderSearchReqDto;
 import com.byul.web.dto.response.OrderHistoryResDto;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cglib.core.Local;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +25,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -55,7 +51,7 @@ class OrderServiceTest {
 
     @BeforeEach
     public void setup() {
-        item = itemRepository.saveAndFlush(Menu.builder().name("아이스 아메리카노").price(4500).build());
+        item = itemRepository.saveAndFlush(Drink.builder().name("아이스 아메리카노").price(4500).build());
         member = memberRepository.saveAndFlush(Member.builder().name("테스트").build());
 
         SyrupType type1 = new SyrupType("클래식", "2");

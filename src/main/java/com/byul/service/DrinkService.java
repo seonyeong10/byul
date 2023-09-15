@@ -2,7 +2,8 @@ package com.byul.service;
 
 import com.byul.domain.Category;
 import com.byul.domain.repository.CategoryRepository;
-import com.byul.domain.repository.MenuRepository;
+import com.byul.domain.repository.DrinkRepository;
+import com.byul.web.dto.ItemParam;
 import com.byul.web.dto.request.MenuListRequestDto;
 import com.byul.web.dto.request.Sorting;
 import com.byul.web.dto.response.ItemListResponseDto;
@@ -13,26 +14,28 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
-public class MenuService {
+public class DrinkService {
 
-    private final MenuRepository menuRepository;
+    private final DrinkRepository drinkRepository;
 
     private final CategoryRepository categoryRepository;
 
     /**
      * GET /api/v1/menus
-     */
+
     public Page<ItemListResponseDto> findAll (MenuListRequestDto requestDto) {
         Sorting sorting = Sorting.valueOf(requestDto.getSort().toUpperCase());
         PageRequest page = PageRequest.of(requestDto.getPage(), 25, Sort.by(sorting.getValue()).descending());
 
-        return menuRepository.findAllByCategory(null, page)
+        return drinkRepository.findAllByCategory(null, page)
                 .map(ItemListResponseDto::new);
     }
+     */
 
     /**
      * GET /api/v1/menus/{parentCategoryName}
@@ -45,7 +48,7 @@ public class MenuService {
 
         PageRequest page = PageRequest.of(requestDto.getPage(), 25, Sort.by(sorting.getValue()).descending());
 
-        return  menuRepository.findAllByCategory(parent, page)
+        return  drinkRepository.findAllByCategory(parent, page)
                 .map(ItemListResponseDto::new);
     }
 
@@ -55,8 +58,17 @@ public class MenuService {
      */
     public MenuResponseDto findOne (Long menuId) {
 
-        return menuRepository.findById(menuId).stream()
+        return drinkRepository.findById(menuId).stream()
                 .findAny().map(MenuResponseDto::new)
                 .orElseThrow(() -> new NoSuchElementException(String.format("메뉴를 찾을 수 없습니다. menu_id = [%d]", menuId)));
+    }
+
+    /**
+     * 최근 n 개의 상품 찾기
+     */
+    public List<ItemListResponseDto> findTopN(ItemParam param) {
+        return drinkRepository.findTopN(param).stream()
+                .map(ItemListResponseDto::new)
+                .toList();
     }
 }

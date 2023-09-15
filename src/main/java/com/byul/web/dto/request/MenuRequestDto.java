@@ -1,7 +1,7 @@
 package com.byul.web.dto.request;
 
 import com.byul.domain.Period;
-import com.byul.domain.item.Menu;
+import com.byul.domain.item.Drink;
 import com.byul.domain.item.MenuDetail;
 import com.byul.domain.item.Sizes;
 import lombok.Builder;
@@ -79,8 +79,8 @@ public class MenuRequestDto {
     /**
      * Menu 엔티티를 생성한다.
      */
-    public Menu toMenu () {
-        return Menu.builder()
+    public Drink toMenu () {
+        return Drink.builder()
                 .period(Period.builder()
                         .startDate(startDate)
                         .endDate(endDate)

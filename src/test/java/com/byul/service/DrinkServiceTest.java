@@ -1,12 +1,12 @@
 package com.byul.service;
 
 import com.byul.domain.Category;
-import com.byul.domain.item.Menu;
+import com.byul.domain.item.Drink;
 import com.byul.domain.item.MenuDetail;
 import com.byul.domain.item.Sizes;
 import com.byul.domain.repository.CategoryRepository;
 import com.byul.domain.repository.MenuDetailRepository;
-import com.byul.domain.repository.MenuRepository;
+import com.byul.domain.repository.DrinkRepository;
 import com.byul.web.dto.request.MenuListRequestDto;
 import com.byul.web.dto.response.ItemListResponseDto;
 import com.byul.web.dto.response.MenuResponseDto;
@@ -26,11 +26,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @Transactional
-class MenuServiceTest {
+class DrinkServiceTest {
 
-    @Autowired private MenuService menuService;
+    @Autowired private DrinkService drinkService;
 
-    @Autowired private MenuRepository menuRepository;
+    @Autowired private DrinkRepository drinkRepository;
 
     @Autowired private CategoryRepository categoryRepository;
 
@@ -51,9 +51,9 @@ class MenuServiceTest {
         Category child = categoryRepository.saveAndFlush(Category.builder().name("에스프레소").engName("espresso").parent(parent).build());
         String name = "커피";
 
-        for (int i=0 ; i<30 ; i++) {
-            menuRepository.saveAndFlush(Menu.builder().name(name+i).category(child).build());
-        }
+        //for (int i=0 ; i<30 ; i++) {
+            drinkRepository.saveAndFlush(Drink.builder().name(name).category(child).build());
+        //}
 
         MenuListRequestDto requestDto = new MenuListRequestDto();
         requestDto.setPage(0);
@@ -61,11 +61,11 @@ class MenuServiceTest {
 
         //when
         Category findCtg = categoryRepository.findById(child.getId()).orElse(null);
-        System.out.println(findCtg.getEngName());
-        Page<ItemListResponseDto> all = menuService.findAllCategory(requestDto, parent.getEngName());
+        //System.out.println(findCtg.getEngName());
+        Page<ItemListResponseDto> all = drinkService.findAllCategory(requestDto, parent.getEngName());
 
         //then
-        assertEquals(all.getContent().get(0).getName(), name+29);
+        assertEquals(all.getContent().get(0).getName(), name);
     }
 
     @Test
@@ -76,14 +76,14 @@ class MenuServiceTest {
         String temp = "ICED";
         String etc = "테스트 중입니다.";
 
-        Menu saved = Menu.builder()
+        Drink saved = Drink.builder()
                 .name(name)
                 .engName(engName)
                 .category(category)
                 .etc(etc)
                 .temp(temp)
                 .build();
-        menuRepository.saveAndFlush(saved);
+        drinkRepository.saveAndFlush(saved);
 
         MenuDetail tall = MenuDetail.builder().sizes(Sizes.TALL).capacity(355).calorie(100L).build();
         MenuDetail grande = MenuDetail.builder().sizes(Sizes.GRANDE).capacity(473).calorie(200L).build();
@@ -96,7 +96,7 @@ class MenuServiceTest {
 
 
         //when
-        MenuResponseDto find = menuService.findOne(saved.getId());
+        MenuResponseDto find = drinkService.findOne(saved.getId());
 
         //then
         assertEquals(saved.getId(), find.getId());

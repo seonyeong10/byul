@@ -15,13 +15,13 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("/api/v1/items/latest")
+    @GetMapping("/api/v1/menus/latest")
     public List<ItemListResponseDto> findAllLatest() {
         ItemParam param = ItemParam.builder().isLatest(true).build();
         return itemService.findAllComplex(param);
     }
 
-    @GetMapping("/api/v1/items/advised")
+    @GetMapping("/api/v1/menus/advised")
     public List<ItemListResponseDto> findAllAdvised() {
         ItemParam param = ItemParam.builder().isAdvised(true).build();
         return itemService.findAllComplex(param);

@@ -52,7 +52,7 @@ public class MenuDetail {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
-    private Menu menu;
+    private Item item;
 
     @Builder
     public MenuDetail(Long id, Sizes sizes, int capacity, int charge, Long calorie, int carbohydrate, int sugar, int protein, int fat, int saturFat, int transFat, int cholesterol, int caffeine, int sodium, int espresso, String syrup, String milkType) {
@@ -79,9 +79,9 @@ public class MenuDetail {
     /**
      * 메뉴를 저장한다.
      */
-    public void addMenu (Menu menu) {
-        this.menu = menu;
-        menu.getMenuDetail().add(this);
+    public void addMenu (Item item) {
+        this.item = item;
+        //item.getMenuDetail().add(this);
     }
 
 

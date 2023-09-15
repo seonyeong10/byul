@@ -1,8 +1,8 @@
 package com.byul.service;
 
 import com.byul.domain.Member;
+import com.byul.domain.item.Drink;
 import com.byul.domain.item.Item;
-import com.byul.domain.item.Menu;
 import com.byul.domain.order.Cart;
 import com.byul.domain.repository.*;
 import com.byul.web.dto.SyrupType;
@@ -33,7 +33,7 @@ class CartServiceTest {
 
     @Autowired private ItemRepository itemRepository;
 
-    @Autowired private MenuRepository menuRepository;
+    @Autowired private DrinkRepository drinkRepository;
 
     @Autowired private CartRepository cartRepository;
 
@@ -45,7 +45,7 @@ class CartServiceTest {
 
     @BeforeEach
     public void setup() {
-        item = itemRepository.saveAndFlush(Menu.builder().name("아이스 아메리카노").price(100).build());
+        item = itemRepository.saveAndFlush(Drink.builder().name("아이스 아메리카노").price(100).build());
         member = memberRepository.saveAndFlush(Member.builder().name("테스트").build());
 
         SyrupType type1 = new SyrupType("클래식", "2");

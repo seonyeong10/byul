@@ -1,6 +1,7 @@
 package com.byul.web.dto.response;
 
-import com.byul.domain.item.Menu;
+import com.byul.domain.item.Drink;
+import com.byul.domain.item.Food;
 import com.byul.domain.item.MenuDetail;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +37,7 @@ public class MenuResponseDto {
 
     private List<MenuDetailResponseDto> menuDetail = new ArrayList<>();
 
-    public MenuResponseDto(Menu entity) {
+    public MenuResponseDto(Drink entity) {
         id = entity.getId();
         category = new CategoryResponseDto(entity.getCategory());
         name = entity.getName();
@@ -49,7 +50,22 @@ public class MenuResponseDto {
                 .map(AttachFileResponseDto::new)
                 .toList();
         etc = entity.getEtc();
-        menuDetail = sort(entity.getMenuDetail());
+        menuDetail = sort(entity.getMenuDetails());
+    }
+
+    public MenuResponseDto(Food entity) {
+        id = entity.getId();
+        category = new CategoryResponseDto(entity.getCategory());
+        name = entity.getName();
+        engName = entity.getEngName();
+        price = entity.getPrice();
+        startDate = entity.getPeriod().getStartDate();
+        endDate = entity.getPeriod().getEndDate();
+        attachFiles = entity.getAttachFiles().stream()
+                .map(AttachFileResponseDto::new)
+                .toList();
+        etc = entity.getEtc();
+        menuDetail = sort(entity.getMenuDetails());
     }
 
     /**

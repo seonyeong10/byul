@@ -21,7 +21,7 @@
     
     ● 개발인원 : 1명
     
-    ● 개발기간 : 2023.07 ~ 2023.09
+    ● 개발기간 : 2023.07 ~ 
     
     ● 주요기능
       -카테고리별 상품 조회
@@ -101,3 +101,22 @@
 |----|-----|----------|----------|----------|
 |결제 준비하기|GET|/api/v1/order/{memberId}/pay/{platform}|?orderId={orderId}&itemName={itemName}&quantity={quantity}&totalAmount={totalAmount}|ok|
 |결제하기|POST|/api/v1/order/{memberId}/pay/{platform}|||
+
+
+<br/>
+<br/>
+
+> ### 구동 화면
+<br/>
+
+- 홈
+  <br/>
+  ![main_animation](https://github.com/seonyeong10/banjjok/assets/78454631/3414ac56-77ad-4ff5-beaf-a43e1e2e2f10)
+  
+- 로그인
+  <br/>
+  ![login_animation3](https://github.com/seonyeong10/banjjok/assets/78454631/6fd9651d-1404-4031-947b-c27acef84b57)
+
+- 주문·결제
+  <br/>
+  ![pay_animation3](https://github.com/seonyeong10/banjjok/assets/78454631/434b48f4-20ac-44e8-85fe-19f97ad5a7fe)

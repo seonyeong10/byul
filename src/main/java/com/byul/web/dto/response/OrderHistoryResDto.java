@@ -14,6 +14,8 @@ import java.util.List;
 @ToString
 public class OrderHistoryResDto {
 
+    private Long orderId;
+
     private String[] status;
 
     private List<OrderItemResDto> orderItems = new ArrayList<>();
@@ -31,6 +33,7 @@ public class OrderHistoryResDto {
     private int totalPrice;
 
     public OrderHistoryResDto(Order entity) {
+        orderId = entity.getId();
         if(entity.getStatus() != null) {
             status = new String[]{entity.getStatus().getKey(), entity.getStatus().getValue()};
         }

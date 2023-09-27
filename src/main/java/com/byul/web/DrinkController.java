@@ -37,6 +37,14 @@ public class DrinkController {
         return drinkService.findAllCategory(requestDto, "drink");
     }
 
+    @GetMapping("/api/v1/menus/drink/{childCategory}")
+    public Page<ItemListResponseDto> findAllChildCategory(
+            @PathVariable(name = "childCategory") String childCategory,
+            MenuListRequestDto requestDto
+    ) {
+        return drinkService.findAllCategory(requestDto, childCategory);
+    }
+
     @GetMapping("/api/v1/menus/drink/{childCategory}/{menuId}")
     public MenuResponseDto findOne(
             @PathVariable(name = "menuId") Long menuId
